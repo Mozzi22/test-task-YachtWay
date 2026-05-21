@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #2f2f39;
+  --color-ink-2: #3c3c46;
+  --color-muted: #727279;
+  --color-soft: #8c8c92;
+  --color-line: #dcdcde;
+  --color-purple: #4b0ea3;
+  --color-purple-line: #8b48e7;
+  --shadow-custom: 0 4px 24px 4px rgba(132, 144, 163, 0.08);
+  --font-figtree: "Figtree", Arial, sans-serif;
+  --font-redhat: "Red Hat Display", Arial, sans-serif;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  html, body {
+    min-height: 100%;
+  }
+  body {
+    @apply m-0 overflow-x-hidden bg-white text-ink font-figtree text-[16px] tracking-normal;
+  }
+  button, input {
+    font: inherit;
+  }
+  button {
+    @apply cursor-pointer;
+  }
+}
