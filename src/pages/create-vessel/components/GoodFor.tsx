@@ -8,7 +8,7 @@ import clsx from 'clsx'
 import MultiDropDown from '../../../components/MultiDropDown.tsx'
 import { Shapes } from 'lucide-react'
 
-export default function GoodFor() {
+const GoodFor = () => {
   const { t } = useTranslation()
   const { watch, setValue } = useFormContext<VesselFormData>()
 
@@ -16,7 +16,7 @@ export default function GoodFor() {
 
   return (
     <section className="group good-for relative mb-10">
-      <h2 className="flex items-center gap-2 h-[20px] m-0 mb-5 text-muted text-xs font-medium leading-[18px] uppercase">
+      <h2 className="flex items-center gap-2 h-[20px] m-0 mb-5 text-muted text-[14px] font-medium leading-[18px] uppercase">
         <span className="text-sm">
           <Shapes width="20px" height="20px" />
         </span>
@@ -34,7 +34,7 @@ export default function GoodFor() {
         }
       />
       <p
-        className={twMerge(clsx('mt-2 text-xs leading-4 hidden', open && 'block text-muted'))}
+        className={twMerge(clsx('hint leading-4 hidden', open && 'block text-muted'))}
         id="good-for-message"
       >
         {t('form.goodForHint')}
@@ -42,3 +42,5 @@ export default function GoodFor() {
     </section>
   )
 }
+
+export default GoodFor

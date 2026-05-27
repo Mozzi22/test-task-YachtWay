@@ -628,7 +628,3 @@ function slugify(value) {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '')
 }
-
-console.log('INPUT:', document.querySelector('#make-input'))
-console.log('MENU:', document.querySelector('#make-options'))
-console.log('FIELD:', document.querySelector('[data-combo="make"]'))

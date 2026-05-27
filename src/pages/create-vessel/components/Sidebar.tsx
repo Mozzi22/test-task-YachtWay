@@ -12,7 +12,7 @@ import {
   Zap
 } from 'lucide-react'
 
-const Sidebar = () => {
+const Sidebar = ({ onResetForm }: { onResetForm: () => void }) => {
   const { t } = useTranslation()
 
   const steps = [
@@ -82,13 +82,12 @@ const Sidebar = () => {
         ))}
       </nav>
 
-      <a
-        className="create-new mt-auto text-surface text-[14px] font-medium leading-[20px] no-underline"
-        href="#"
-        // todo create new logic and page
+      <button
+        className="create-new mt-auto cursor-pointer flex text-surface text-[14px] font-medium leading-[20px]"
+        onClick={onResetForm}
       >
         {t('sidebar.createNewListing')}
-      </a>
+      </button>
     </aside>
   )
 }

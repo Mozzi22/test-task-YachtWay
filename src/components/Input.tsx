@@ -5,14 +5,22 @@ import HelpDot from './HelpDot.tsx'
 
 type Props = {
   id: string
-  error: string
+  error?: string
   label: string
   rightSlot?: ReactNode
   className?: string
   helpText?: string
 }
 
-const Input = ({ id, label, error, helpText = '', rightSlot, className = '', ...props }: Props) => {
+const Input = ({
+  id,
+  label,
+  error = '',
+  helpText = '',
+  rightSlot,
+  className = '',
+  ...props
+}: Props) => {
   const [open, setOpen] = useState(false)
 
   return (
@@ -25,11 +33,7 @@ const Input = ({ id, label, error, helpText = '', rightSlot, className = '', ...
       {helpText && <HelpDot open={open} setOpen={setOpen} />}
       <p
         className={twMerge(
-          clsx(
-            'mt-1 text-xs leading-4 hidden',
-            error && 'block text-danger',
-            open && 'block text-muted'
-          )
+          clsx('hint leading-4 hidden', error && 'block text-danger', open && 'block text-muted')
         )}
         id={`${id}-message`}
       >

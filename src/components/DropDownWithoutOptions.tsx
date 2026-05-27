@@ -47,7 +47,7 @@ const DropDownWithoutOptions = forwardRef<HTMLInputElement, Props>(function Drop
 
   return (
     <div className="field combo relative block" data-combo={id}>
-      <div className="relative h-10">
+      <div className="relative h-12">
         <label
           htmlFor={`${id}-input`}
           className="absolute left-3 -top-2 z-10 px-1 text-muted bg-surface text-xs font-medium leading-[18px]"
@@ -80,11 +80,7 @@ const DropDownWithoutOptions = forwardRef<HTMLInputElement, Props>(function Drop
       />
       <p
         className={twMerge(
-          clsx(
-            'mt-1 text-xs leading-4 hidden',
-            error && 'block text-danger',
-            open && 'block text-muted'
-          )
+          clsx('hint leading-4 hidden', error && 'block text-danger', open && 'block text-muted')
         )}
         id={`${id}-message`}
       >

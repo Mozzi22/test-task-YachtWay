@@ -17,7 +17,7 @@ const VesselDetails = () => {
 
   return (
     <section className="group vessel-details relative mb-[40px]">
-      <h2 className="flex items-center gap-2 h-[20px] m-0 mb-5 text-muted text-xs font-medium leading-[18px] uppercase">
+      <h2 className="flex items-center gap-2 h-[20px] m-0 mb-5 text-muted text-[14px] font-medium leading-[18px] uppercase">
         <span className="text-sm">⚓</span> {t('form.vesselDetails')}
       </h2>
 

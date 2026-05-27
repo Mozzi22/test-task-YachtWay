@@ -27,11 +27,15 @@ const COUNTRY_OF_DUTY_OPTIONS = [
 
 const Taxes = () => {
   const { t } = useTranslation()
-  const { setValue, register } = useFormContext<VesselFormData>()
+  const {
+    setValue,
+    register,
+    formState: { errors }
+  } = useFormContext<VesselFormData>()
 
   return (
     <section className="group taxes relative mb-[40px]">
-      <h2 className="flex items-center gap-2 h-[20px] m-0 mb-5 text-muted text-xs font-medium leading-[18px] uppercase">
+      <h2 className="flex items-center gap-2 h-[20px] m-0 mb-5 text-muted text-[14px] font-medium leading-[18px] uppercase">
         <span className="text-sm">
           <Percent height="20px" width="20px" />
         </span>
@@ -42,6 +46,7 @@ const Taxes = () => {
           id="taxStatus"
           label={t('form.taxStatus')}
           options={TAX_STATUS_OPTIONS}
+          error={errors.taxStatus ? t(errors.taxStatus.message as string) : ''}
           {...register('taxStatus')}
           onChange={(value) =>
             setValue('taxStatus', value, {
@@ -53,6 +58,7 @@ const Taxes = () => {
           id="importDutyPaid"
           label={`${t('form.importDutyPaid')}*`}
           options={IMPORT_DUTY_PAID_OPTIONS}
+          error={errors.importDutyPaid ? t(errors.importDutyPaid.message as string) : ''}
           {...register('importDutyPaid')}
           onChange={(value) =>
             setValue('importDutyPaid', value, {
@@ -68,6 +74,7 @@ const Taxes = () => {
             label={`${t('form.countryOfDuty')}*`}
             helpText={t('form.countryOfDutyHint')}
             options={COUNTRY_OF_DUTY_OPTIONS}
+            error={errors.countryOfDuty ? t(errors.countryOfDuty.message as string) : ''}
             {...register('countryOfDuty')}
             onChange={(value) =>
               setValue('countryOfDuty', value, {

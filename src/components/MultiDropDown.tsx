@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import Counter from './Counter.tsx'
-import { X } from 'lucide-react'
+import { CheckIcon, X } from 'lucide-react'
 import { useClickOutside } from '../hooks/useClickOutside.tsx'
 
 type Props = {
@@ -66,11 +66,16 @@ const MultiDropDown = ({ value = [], onChange, options, label, max = 4 }: Props)
                 e.stopPropagation()
                 add(opt)
               }}
-              className={`px-2 py-1 rounded cursor-pointer text-sm hover:bg-[#f6f6f7] ${
+              className={`px-2 py-1 flex justify-between items-center h-[46px] rounded cursor-pointer text-sm hover:bg-[#f6f6f7] ${
                 value.includes(opt) ? 'text-purple' : ''
               }`}
             >
               {opt}
+              {value.includes(opt) && (
+                <span className="text-purple h-[20px] w-[20px] border border-purple rounded flex items-center justify-center">
+                  <CheckIcon />
+                </span>
+              )}
             </div>
           ))}
         </div>
