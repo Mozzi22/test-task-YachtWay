@@ -40,7 +40,7 @@ const Taxes = () => {
       <div className="row two grid grid-cols-2 gap-5 mb-4">
         <DropDown
           id="taxStatus"
-          label={`${t('form.taxStatus')}*`}
+          label={t('form.taxStatus')}
           options={TAX_STATUS_OPTIONS}
           {...register('taxStatus')}
           onChange={(value) => setValue('taxStatus', value)}

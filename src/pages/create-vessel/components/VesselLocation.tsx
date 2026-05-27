@@ -1,13 +1,19 @@
 import { useTranslation } from 'react-i18next'
 import { useFormContext } from 'react-hook-form'
 import type { VesselFormData } from '../../../validation/vesselSchema'
-import DropDownWithoutOptions from '../../../components/DropDownWithoutOptions.tsx'
 import Checkbox from '../../../components/Checkbox.tsx'
 import { MapPin } from 'lucide-react'
+import DropDown from '../../../components/DropDown.tsx'
+
+const VESSEL_LOCATION_OPTIONS = ['At Sea', 'In Port', 'Anchored', 'Underway', 'Moored', 'Dry Dock']
 
 const VesselLocation = () => {
   const { t } = useTranslation()
-  const { register } = useFormContext<VesselFormData>()
+  const {
+    setValue,
+    register,
+    formState: { errors }
+  } = useFormContext<VesselFormData>()
 
   return (
     <section className="group vessel-location relative mb-[40px]">
@@ -17,13 +23,14 @@ const VesselLocation = () => {
         </span>
         {t('form.vesselLocation')}
       </h2>
-      <DropDownWithoutOptions
+      <DropDown
         id="vesselLocation"
-        error={''}
-        // error={errors.year ? t(errors.year.message as string) : ''}
         label={`${t('form.vesselLocation')}*`}
+        options={VESSEL_LOCATION_OPTIONS}
         helpText={t('form.vesselLocationHint')}
+        error={errors.vesselLocation ? t(errors.vesselLocation.message as string) : ''}
         {...register('vesselLocation')}
+        onChange={(value) => setValue('vesselLocation', value)}
       />
       <Checkbox
         label={t('form.usCitizens')}
