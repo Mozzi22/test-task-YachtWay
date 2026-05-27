@@ -72,7 +72,17 @@
 
   .rail {
     background: var(--gradient-sidebar);
-    box-shadow: 18px 0 40px rgb(8 7 12 / 14%);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    width: 324px;
+    flex-shrink: 0;
+    height: 100vh;
+    min-height: 800px;
+    padding: 34px 40px 38px;
+    border-radius: 0 2px 2px 0;
   }
 
   .brand {
@@ -481,8 +491,7 @@
       position: relative;
       width: 100%;
       height: auto;
-      padding: 28px 20px 32px;
-      border-radius: 0 0 20px 20px;
+      border-radius: 0 0 2px 2px;
       min-height: unset;
     }
 
