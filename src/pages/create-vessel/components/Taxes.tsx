@@ -43,14 +43,22 @@ const Taxes = () => {
           label={t('form.taxStatus')}
           options={TAX_STATUS_OPTIONS}
           {...register('taxStatus')}
-          onChange={(value) => setValue('taxStatus', value)}
+          onChange={(value) =>
+            setValue('taxStatus', value, {
+              shouldValidate: true
+            })
+          }
         />
         <DropDown
           id="importDutyPaid"
           label={`${t('form.importDutyPaid')}*`}
           options={IMPORT_DUTY_PAID_OPTIONS}
           {...register('importDutyPaid')}
-          onChange={(value) => setValue('importDutyPaid', value)}
+          onChange={(value) =>
+            setValue('importDutyPaid', value, {
+              shouldValidate: true
+            })
+          }
         />
       </div>
       <div className="row two grid grid-cols-2 gap-5">
@@ -61,7 +69,11 @@ const Taxes = () => {
             helpText={t('form.countryOfDutyHint')}
             options={COUNTRY_OF_DUTY_OPTIONS}
             {...register('countryOfDuty')}
-            onChange={(value) => setValue('countryOfDuty', value)}
+            onChange={(value) =>
+              setValue('countryOfDuty', value, {
+                shouldValidate: true
+              })
+            }
           />
         </div>
         <div />

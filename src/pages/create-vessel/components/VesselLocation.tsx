@@ -30,7 +30,7 @@ const VesselLocation = () => {
         helpText={t('form.vesselLocationHint')}
         error={errors.vesselLocation ? t(errors.vesselLocation.message as string) : ''}
         {...register('vesselLocation')}
-        onChange={(value) => setValue('vesselLocation', value)}
+        onChange={(value) => setValue('vesselLocation', value, { shouldValidate: true })}
       />
       <Checkbox
         label={t('form.usCitizens')}

@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { FormProvider, useForm } from 'react-hook-form'
-import { useEffect } from 'react'
+import { FormProvider, useForm, useWatch } from 'react-hook-form'
+import { type CSSProperties, useEffect } from 'react'
 import Availability from './components/Availability'
 import CreateModelModal from './components/CreateModelModal'
 import FormActions from './components/FormActions'
@@ -47,9 +47,33 @@ const defaultValues: VesselFormData = {
   generatorWarrantyDate: '08.08.2029'
 }
 
+const REQUIRED_PROGRESS_FIELDS = [
+  'make',
+  'model',
+  'year',
+  'hullNumber',
+  'vesselLocation',
+  'vesselType',
+  'price',
+  'importDutyPaid',
+  'countryOfDuty'
+] as const
+
+const isCompletedValue = (value: unknown) => {
+  if (Array.isArray(value)) {
+    return value.length > 0
+  }
+
+  if (typeof value === 'string') {
+    return value.trim().length > 0
+  }
+
+  return Boolean(value)
+}
+
 const CreateVesselPage = () => {
-  const methods = useForm<VesselFormData>({
-    resolver: yupResolver(vesselSchema),
+  const methods = useForm({
+    resolver: yupResolver(vesselSchema()),
     defaultValues,
     mode: 'onBlur'
   })
@@ -64,49 +88,18 @@ const CreateVesselPage = () => {
       document.body.removeChild(script)
     }
   }, [])
-  useEffect(() => {
-    const segmentedGroups = Array.from(document.querySelectorAll<HTMLElement>('[data-segmented]'))
 
-    const listeners = segmentedGroups.map((group) => {
-      const handler = (event: Event) => {
-        const target = event.target as HTMLElement | null
-        const button = target?.closest<HTMLButtonElement>('button[data-value]')
-        const key = group.dataset.segmented
+  const requiredFieldValues = useWatch({
+    control: methods.control
+  })
 
-        if (!button || !key) {
-          return
-        }
-
-        if (key === 'condition') {
-          methods.setValue('condition', button.dataset.value as VesselFormData['condition'], {
-            shouldValidate: true
-          })
-        }
-
-        if (key === 'availability') {
-          methods.setValue('availability', button.dataset.value as VesselFormData['availability'], {
-            shouldValidate: true
-          })
-        }
-
-        if (key === 'priceMode') {
-          methods.setValue('priceMode', button.dataset.value as VesselFormData['priceMode'], {
-            shouldValidate: true
-          })
-        }
-      }
-
-      group.addEventListener('click', handler)
-
-      return () => group.removeEventListener('click', handler)
-    })
-
-    return () => {
-      listeners.forEach((cleanup) => cleanup())
-    }
-  }, [methods])
-
-  const isSubmitEnabled = false // todo isSubmitEnabled
+  const completedRequiredFields = REQUIRED_PROGRESS_FIELDS.filter((fieldName) =>
+    isCompletedValue(requiredFieldValues?.[fieldName])
+  ).length
+  const totalRequiredFields = REQUIRED_PROGRESS_FIELDS.length
+  const heatProgress = completedRequiredFields / totalRequiredFields
+  const heatPercent = Math.round(heatProgress * 100)
+  const isSubmitEnabled = methods.formState.isValid
 
   return (
     <FormProvider {...methods}>
@@ -116,13 +109,26 @@ const CreateVesselPage = () => {
       >
         <Sidebar />
         <div className="vessel-page__main relative flex min-w-0 flex-col">
-          {isSubmitEnabled && <div className="top-gradient" />}
+          <div
+            className="top-gradient"
+            style={
+              {
+                '--heat-opacity': String(heatProgress)
+              } as CSSProperties
+            }
+          />
           <DraftButton />
           <section
             className="content relative mx-auto w-full max-w-[564px] px-5 pb-16 lg:px-0 lg:pb-[52px]"
             aria-label="General info form"
           >
-            <Header isSubmitEnabled={isSubmitEnabled} />
+            <Header
+              isSubmitEnabled={isSubmitEnabled}
+              heatProgress={heatProgress}
+              heatPercent={heatPercent}
+              completedRequiredFields={completedRequiredFields}
+              totalRequiredFields={totalRequiredFields}
+            />
             <form
               className="form vessel-form flex flex-col gap-0"
               noValidate

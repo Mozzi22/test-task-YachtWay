@@ -37,10 +37,14 @@ const WarrantyItem = ({ item }: { item: TWarrantyItem }) => {
       <div className="datebox">
         <DropDownCalendar
           id={item.field}
-          value={value}
+          value={value ?? ''}
           disabled={!isEnabled}
           label={t('form.expirationDate')}
-          setValue={(date) => setValue(item.field, date)}
+          setValue={(date) =>
+            setValue(item.field, date, {
+              shouldValidate: true
+            })
+          }
         />
       </div>
 
@@ -52,7 +56,11 @@ const WarrantyItem = ({ item }: { item: TWarrantyItem }) => {
         type="button"
         data-toggle={item.toggle}
         aria-label={`${t(`warrantyNames.${item.nameKey}`)} ${t('form.warranty')} enabled`}
-        onClick={() => setValue(`${item.field}Enabled`, !isEnabled)}
+        onClick={() =>
+          setValue(`${item.field}Enabled`, !isEnabled, {
+            shouldValidate: true
+          })
+        }
       >
         <span className="block w-4 h-4 bg-white rounded-full transition-transform" />
       </button>

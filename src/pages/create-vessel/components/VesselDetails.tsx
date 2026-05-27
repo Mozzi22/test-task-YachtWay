@@ -4,6 +4,7 @@ import type { VesselFormData } from '../../../validation/vesselSchema'
 import DropDownWithoutOptions from '../../../components/DropDownWithoutOptions.tsx'
 import Input from '../../../components/Input.tsx'
 import Button from '../../../components/Button.tsx'
+import { useExternalDomFieldSync } from '../../../hooks/useExternalDomFieldSync.ts'
 
 const VesselDetails = () => {
   const { t } = useTranslation()
@@ -11,6 +12,8 @@ const VesselDetails = () => {
     register,
     formState: { errors }
   } = useFormContext<VesselFormData>()
+
+  useExternalDomFieldSync('hullNumber', '#hull-number')
 
   return (
     <section className="group vessel-details relative mb-[40px]">
@@ -21,12 +24,14 @@ const VesselDetails = () => {
       <div className="row two grid grid-cols-2 gap-5 mb-5">
         <DropDownWithoutOptions
           id="make"
+          syncField="make"
           error={errors.make ? t(errors.make.message as string) : ''}
           label={`${t('form.make')}*`}
           {...register('make')}
         />
         <DropDownWithoutOptions
           id="model"
+          syncField="model"
           error={errors.model ? t(errors.model.message as string) : ''}
           label={`${t('form.model')}*`}
           {...register('model')}
@@ -36,6 +41,7 @@ const VesselDetails = () => {
       <div className="row two grid grid-cols-2 gap-5 mb-5">
         <DropDownWithoutOptions
           id="year"
+          syncField="year"
           error={errors.year ? t(errors.year.message as string) : ''}
           label={`${t('form.year')}*`}
           {...register('year')}

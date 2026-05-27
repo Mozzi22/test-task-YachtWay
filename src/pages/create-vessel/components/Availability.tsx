@@ -26,9 +26,13 @@ const Availability = () => {
       </div>
       <DropDownCalendar
         id="completion-date"
-        value={watch('completionDate')}
+        value={watch('completionDate') ?? ''}
         label={t('form.completionDate')}
-        setValue={(date) => setValue('completionDate', date)}
+        setValue={(date) =>
+          setValue('completionDate', date, {
+            shouldValidate: true
+          })
+        }
         {...register('completionDate')}
       />
     </section>

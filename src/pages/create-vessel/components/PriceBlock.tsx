@@ -43,7 +43,7 @@ const PriceBlock = () => {
         <Button data-value="fixed" title={t('buttons.fixedPrice')} />
       </div>
       <p
-        className={twMerge(clsx('mt-2 text-xs leading-4 hidden', open && 'block text-muted'))}
+        className={twMerge(clsx('mb-2 text-xs leading-4 hidden', open && 'block text-muted'))}
         id="good-for-message"
       >
         {t('buttons.priceRangeHint')}
