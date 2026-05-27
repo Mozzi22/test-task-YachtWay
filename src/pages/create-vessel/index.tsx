@@ -27,7 +27,7 @@ const defaultValues: VesselFormData = {
   condition: 'new',
   vesselLocation: '',
   usCitizenRestriction: false,
-  vesselType: '',
+  vesselType: [],
   availability: 'later',
   completionDate: '',
   goodForCategories: ['Watersports', 'Fishing'],

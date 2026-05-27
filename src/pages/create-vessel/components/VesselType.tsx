@@ -1,13 +1,29 @@
 import { useTranslation } from 'react-i18next'
 import { useFormContext } from 'react-hook-form'
 import type { VesselFormData } from '../../../validation/vesselSchema'
-import DropDownWithoutOptions from '../../../components/DropDownWithoutOptions.tsx'
-import Counter from '../../../components/Counter.tsx'
 import { Ship } from 'lucide-react'
+import MultiDropDown from '../../../components/MultiDropDown.tsx'
+import { twMerge } from 'tailwind-merge'
+import clsx from 'clsx'
+
+const VESSEL_TYPE_OPTIONS = [
+  'Container',
+  'Bulk',
+  'Tanker',
+  'General Cargo',
+  'Ro-Ro',
+  'Passenger',
+  'Other'
+]
 
 const VesselType = () => {
   const { t } = useTranslation()
-  const { register } = useFormContext<VesselFormData>()
+  const {
+    watch,
+    setValue,
+    formState: { errors }
+  } = useFormContext<VesselFormData>()
+  const error = errors.vesselType ? t(errors.vesselType.message as string) : ''
 
   return (
     <section className="group vessel-type relative mb-[40px]">
@@ -17,14 +33,18 @@ const VesselType = () => {
         </span>
         {t('form.vesselType')}
       </h2>
-      <DropDownWithoutOptions
-        id="vesselType"
-        error={''}
-        // error={errors.vesselType ? t(errors.vesselType.message as string) : ''}
+      <MultiDropDown
+        value={watch('vesselType')}
         label={`${t('form.vesselType')}*`}
-        rightSlot={<Counter current={0} max={4} />}
-        {...register('vesselType')}
+        options={VESSEL_TYPE_OPTIONS}
+        onChange={(value) => setValue('vesselType', value)}
       />
+      <p
+        className={twMerge(clsx('mt-1 text-xs leading-4 hidden', error && 'block text-danger'))}
+        id="vesselType-message"
+      >
+        {error}
+      </p>
     </section>
   )
 }

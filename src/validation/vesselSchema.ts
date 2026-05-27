@@ -22,7 +22,11 @@ const vesselSchema = yup.object({
     .required('validation.required'),
   vesselLocation: yup.string().required('validation.required'),
   usCitizenRestriction: yup.boolean().defined(),
-  vesselType: yup.string().required('validation.required'),
+  vesselType: yup
+    .array()
+    .of(yup.string().required())
+    .min(1, 'validation.minCategories')
+    .required('validation.required'),
   availability: yup
     .string()
     .oneOf(['now', 'later'], 'validation.selectOption')
