@@ -24,10 +24,14 @@ export default function GoodFor() {
       </h2>
 
       <MultiDropDown
-        value={watch('goodForCategories')}
+        value={watch('goodForCategories') ?? []}
         label={t('form.category')}
         options={['Watersports', 'Fishing', 'Transport', 'Leisure', 'Investment']}
-        onChange={(value) => setValue('goodForCategories', value)}
+        onChange={(value) =>
+          setValue('goodForCategories', value, {
+            shouldValidate: true
+          })
+        }
       />
       <p
         className={twMerge(clsx('mt-2 text-xs leading-4 hidden', open && 'block text-muted'))}

@@ -1,7 +1,16 @@
 import clsx from 'clsx'
-import { type ReactNode, useState } from 'react'
+import {
+  forwardRef,
+  type InputHTMLAttributes,
+  type MutableRefObject,
+  type ReactNode,
+  useCallback,
+  useState
+} from 'react'
 import HelpDot from './HelpDot.tsx'
 import { twMerge } from 'tailwind-merge'
+import { useExternalFieldSync } from '../hooks/useExternalFieldSync.ts'
+import type { VesselFormData } from '../validation/vesselSchema'
 
 type Props = {
   id: string
@@ -9,17 +18,32 @@ type Props = {
   label: string
   helpText?: string
   rightSlot?: ReactNode
-}
+  syncField?: 'make' | 'model' | 'year'
+} & Omit<InputHTMLAttributes<HTMLInputElement>, 'id'>
 
-const DropDownWithoutOptions = ({
-  id,
-  error = '',
-  label,
-  rightSlot,
-  helpText = '',
-  ...props
-}: Props) => {
+const DropDownWithoutOptions = forwardRef<HTMLInputElement, Props>(function DropDownWithoutOptions(
+  { id, error = '', label, rightSlot, helpText = '', syncField, ...props },
+  ref
+) {
   const [open, setOpen] = useState(false)
+  const syncedRef = useExternalFieldSync(
+    syncField ?? (id as Extract<keyof VesselFormData, 'make' | 'model' | 'year'>)
+  )
+  const setRefs = useCallback(
+    (node: HTMLInputElement | null) => {
+      syncedRef.current = node
+
+      if (typeof ref === 'function') {
+        ref(node)
+        return
+      }
+
+      if (ref) {
+        ;(ref as MutableRefObject<HTMLInputElement | null>).current = node
+      }
+    },
+    [ref, syncedRef]
+  )
 
   return (
     <div className="field combo relative block" data-combo={id}>
@@ -33,6 +57,7 @@ const DropDownWithoutOptions = ({
         <input
           id={`${id}-input`}
           {...props}
+          ref={setRefs}
           className={clsx('input m-0 pl-3 pr-[44px]', error && 'input--error')}
           autoComplete="off"
           role="combobox"
@@ -67,6 +92,6 @@ const DropDownWithoutOptions = ({
       </p>
     </div>
   )
-}
+})
 
 export default DropDownWithoutOptions

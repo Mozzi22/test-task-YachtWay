@@ -1,61 +1,80 @@
 import * as yup from 'yup'
 
-const vesselSchema = yup.object({
-  make: yup.string().required('validation.required'),
-  model: yup.string().required('validation.required'),
-  year: yup
-    .string()
-    .required('validation.required')
-    .matches(/^\d{4}$/, 'validation.invalidYear')
-    .test('valid-year', 'validation.invalidYear', (val) => {
-      if (!val) return false
-      const n = Number(val)
-      return n >= 1900 && n <= 2100
-    }),
-  hullNumber: yup.string().required('validation.required').max(20, 'validation.maxLength'),
-  internalId: yup.string().required('validation.required'),
-  currentName: yup.string().required('validation.required'),
-  launchName: yup.string().required('validation.required'),
-  condition: yup
-    .string()
-    .oneOf(['new', 'pre-owned'], 'validation.selectOption')
-    .required('validation.required'),
-  vesselLocation: yup.string().required('validation.required'),
-  usCitizenRestriction: yup.boolean().defined(),
-  vesselType: yup
-    .array()
-    .of(yup.string().required())
-    .min(1, 'validation.minCategories')
-    .required('validation.required'),
-  availability: yup
-    .string()
-    .oneOf(['now', 'later'], 'validation.selectOption')
-    .required('validation.required'),
-  completionDate: yup.string().required('validation.required'),
-  goodForCategories: yup
-    .array()
-    .of(yup.string().required())
-    .min(1, 'validation.minCategories')
-    .required('validation.required'),
-  priceMode: yup
-    .string()
-    .oneOf(['range', 'fixed'], 'validation.selectOption')
-    .required('validation.required'),
-  price: yup.string().required('validation.required'),
-  hidePrice: yup.boolean().defined(),
-  taxStatus: yup.string().required('validation.required'),
-  importDutyPaid: yup.string().required('validation.required'),
-  countryOfDuty: yup.string().required('validation.required'),
-  generalWarrantyDateEnabled: yup.boolean().required('validation.required'),
-  generalWarrantyDate: yup.string().required('validation.required'),
-  engineWarrantyDateEnabled: yup.boolean().required('validation.required'),
-  engineWarrantyDate: yup.string().required('validation.required'),
-  hullWarrantyDateEnabled: yup.boolean().required('validation.required'),
-  hullWarrantyDate: yup.string().required('validation.required'),
-  generatorWarrantyDateEnabled: yup.boolean().required('validation.required'),
-  generatorWarrantyDate: yup.string().required('validation.required')
-})
+export type VesselFormData = {
+  make: string
+  model: string
+  year: string
+  hullNumber: string
+  vesselLocation: string
+  vesselType: string[]
+  price: string
+  importDutyPaid: string
+  countryOfDuty: string
+  internalId: string | undefined
+  currentName: string | undefined
+  launchName: string | undefined
+  condition: 'new' | 'pre-owned' | undefined
+  usCitizenRestriction: boolean | undefined
+  availability: 'now' | 'later' | undefined
+  completionDate: string | undefined
+  goodForCategories: string[] | undefined
+  priceMode: 'range' | 'fixed' | undefined
+  hidePrice: boolean | undefined
+  taxStatus: string | undefined
+  generalWarrantyDateEnabled: boolean | undefined
+  generalWarrantyDate: string | undefined
+  engineWarrantyDateEnabled: boolean | undefined
+  engineWarrantyDate: string | undefined
+  hullWarrantyDateEnabled: boolean | undefined
+  hullWarrantyDate: string | undefined
+  generatorWarrantyDateEnabled: boolean | undefined
+  generatorWarrantyDate: string | undefined
+}
 
-export type VesselFormData = yup.InferType<typeof vesselSchema>
+export const vesselSchema = (): yup.ObjectSchema<VesselFormData> =>
+  yup
+    .object({
+      make: yup.string().required('validation.required'),
+      model: yup.string().required('validation.required'),
+      year: yup
+        .string()
+        .required('validation.required')
+        .matches(/^\d{4}$/, 'validation.invalidYear')
+        .test('valid-year', 'validation.invalidYear', (val) => {
+          if (!val) return false
+          const n = Number(val)
+          return n >= 1900 && n <= 2100
+        }),
+      hullNumber: yup.string().required('validation.required').max(20, 'validation.maxLength'),
+      vesselLocation: yup.string().required('validation.required'),
+      vesselType: yup
+        .array()
+        .of(yup.string().required())
+        .min(1, 'validation.minCategories')
+        .required('validation.required'),
+      price: yup.string().required('validation.required'),
+      importDutyPaid: yup.string().required('validation.required'),
+      countryOfDuty: yup.string().required('validation.required'),
+      internalId: yup.string().optional(),
+      currentName: yup.string().optional(),
+      launchName: yup.string().optional(),
+      condition: yup.mixed<'new' | 'pre-owned'>().oneOf(['new', 'pre-owned']).optional(),
+      usCitizenRestriction: yup.boolean().optional(),
+      availability: yup.mixed<'now' | 'later'>().oneOf(['now', 'later']).optional(),
+      completionDate: yup.string().optional(),
+      goodForCategories: yup.array().of(yup.string().required()).optional(),
+      priceMode: yup.mixed<'range' | 'fixed'>().oneOf(['range', 'fixed']).optional(),
+      hidePrice: yup.boolean().optional(),
+      taxStatus: yup.string().optional(),
+      generalWarrantyDateEnabled: yup.boolean().optional(),
+      generalWarrantyDate: yup.string().optional(),
+      engineWarrantyDateEnabled: yup.boolean().optional(),
+      engineWarrantyDate: yup.string().optional(),
+      hullWarrantyDateEnabled: yup.boolean().optional(),
+      hullWarrantyDate: yup.string().optional(),
+      generatorWarrantyDateEnabled: yup.boolean().optional(),
+      generatorWarrantyDate: yup.string().optional()
+    })
+    .required()
 
 export default vesselSchema

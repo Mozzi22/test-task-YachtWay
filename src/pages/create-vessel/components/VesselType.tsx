@@ -37,7 +37,11 @@ const VesselType = () => {
         value={watch('vesselType')}
         label={`${t('form.vesselType')}*`}
         options={VESSEL_TYPE_OPTIONS}
-        onChange={(value) => setValue('vesselType', value)}
+        onChange={(value) =>
+          setValue('vesselType', value, {
+            shouldValidate: true
+          })
+        }
       />
       <p
         className={twMerge(clsx('mt-1 text-xs leading-4 hidden', error && 'block text-danger'))}
