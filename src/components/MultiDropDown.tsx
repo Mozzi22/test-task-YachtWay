@@ -29,7 +29,7 @@ const MultiDropDown = ({ value = [], onChange, options, label, max = 4 }: Props)
   return (
     <div
       ref={ref}
-      className="field full tag-field relative flex items-center gap-1.5 w-full h-10 px-3 bg-surface border border-line rounded-[2px] text-sm flex-wrap cursor-text"
+      className="field input full tag-field relative flex items-center gap-1.5 w-full h-12 px-3 bg-surface border border-line rounded-[2px] text-sm flex-wrap cursor-text"
       onClick={() => setOpen((prev) => !prev)}
     >
       <span className="absolute left-3 -top-2 z-10 px-1 text-muted bg-surface text-xs font-medium">
