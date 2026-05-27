@@ -11,7 +11,7 @@ const Availability = () => {
 
   return (
     <section className="group availability relative mb-10">
-      <h2 className="flex items-center gap-2 h-[20px] m-0 mb-5 text-muted text-xs font-medium leading-[18px] uppercase">
+      <h2 className="flex items-center gap-2 h-[20px] m-0 mb-5 text-muted text-[14px] font-medium leading-[18px] uppercase">
         <span className="text-sm">
           <CalendarIcon width={20} height={20} />
         </span>

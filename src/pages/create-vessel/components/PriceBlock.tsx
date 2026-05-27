@@ -22,7 +22,7 @@ const PriceBlock = () => {
 
   return (
     <section className="group price-block relative mb-10">
-      <h2 className="flex items-center gap-2 h-[20px] m-0 mb-5 text-muted text-xs font-medium leading-[18px] uppercase">
+      <h2 className="flex items-center gap-2 h-[20px] m-0 mb-5 text-muted text-[14px] font-medium leading-[18px] uppercase">
         <span className="text-sm">
           <DollarSign width="20px" height="20px" />
         </span>

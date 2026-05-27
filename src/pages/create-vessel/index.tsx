@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FormProvider, useForm, useWatch } from 'react-hook-form'
-import { type CSSProperties, useEffect } from 'react'
+import { type CSSProperties, useCallback, useEffect } from 'react'
 import Availability from './components/Availability'
 import CreateModelModal from './components/CreateModelModal'
 import FormActions from './components/FormActions'
@@ -92,6 +92,12 @@ const CreateVesselPage = () => {
   const requiredFieldValues = useWatch({
     control: methods.control
   })
+  const isSubmitEnabled = methods.formState.isValid
+
+  const handleResetForm = useCallback(() => methods.reset(defaultValues), [methods])
+  const handleSave = useCallback(() => {
+    if (isSubmitEnabled) handleResetForm()
+  }, [handleResetForm, isSubmitEnabled])
 
   const completedRequiredFields = REQUIRED_PROGRESS_FIELDS.filter((fieldName) =>
     isCompletedValue(requiredFieldValues?.[fieldName])
@@ -99,7 +105,6 @@ const CreateVesselPage = () => {
   const totalRequiredFields = REQUIRED_PROGRESS_FIELDS.length
   const heatProgress = completedRequiredFields / totalRequiredFields
   const heatPercent = Math.round(heatProgress * 100)
-  const isSubmitEnabled = methods.formState.isValid
 
   return (
     <FormProvider {...methods}>
@@ -107,7 +112,7 @@ const CreateVesselPage = () => {
         className="screen vessel-page relative grid w-full min-h-screen bg-surface lg:grid-cols-[324px_minmax(0,1fr)]"
         aria-labelledby="page-title"
       >
-        <Sidebar />
+        <Sidebar onResetForm={handleResetForm} />
         <div className="vessel-page__main relative flex min-w-0 flex-col">
           <div
             className="top-gradient"
@@ -117,7 +122,7 @@ const CreateVesselPage = () => {
               } as CSSProperties
             }
           />
-          <DraftButton />
+          <DraftButton onSaveDraft={handleResetForm} />
           <section
             className="content relative mx-auto w-full max-w-[564px] px-5 pb-16 lg:px-0 lg:pb-[52px]"
             aria-label="General info form"
@@ -144,7 +149,7 @@ const CreateVesselPage = () => {
               <PriceBlock />
               <Taxes />
               <Warranties />
-              <FormActions />
+              <FormActions onSave={handleSave} onBack={handleResetForm} />
             </form>
           </section>
         </div>
