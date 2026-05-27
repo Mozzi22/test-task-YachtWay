@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import Counter from './Counter.tsx'
 import { X } from 'lucide-react'
+import { useClickOutside } from '../hooks/useClickOutside.tsx'
 
 type Props = {
   value: string[]
@@ -14,18 +15,7 @@ const MultiDropDown = ({ value = [], onChange, options, label, max = 4 }: Props)
   const ref = useRef<HTMLDivElement | null>(null)
   const [open, setOpen] = useState(false)
 
-  useEffect(() => {
-    if (!open) return
-
-    const handleClickOutside = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false)
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [open, setOpen])
+  useClickOutside(ref, open, () => setOpen(false))
 
   const add = (item: string) => {
     if (value.includes(item)) return onChange(value.filter((i) => i !== item))

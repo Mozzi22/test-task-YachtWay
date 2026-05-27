@@ -3,7 +3,6 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { useEffect } from 'react'
 import Availability from './components/Availability'
 import CreateModelModal from './components/CreateModelModal'
-import DraftButton from './components/DraftButton'
 import FormActions from './components/FormActions'
 import GoodFor from './components/GoodFor'
 import Header from './components/Header'
@@ -15,6 +14,7 @@ import VesselLocation from './components/VesselLocation'
 import VesselType from './components/VesselType'
 import Warranties from './components/Warranties'
 import vesselSchema, { type VesselFormData } from '../../validation/vesselSchema'
+import DraftButton from './components/DraftButton.tsx'
 
 const defaultValues: VesselFormData = {
   make: '',
@@ -106,6 +106,8 @@ const CreateVesselPage = () => {
     }
   }, [methods])
 
+  const isSubmitEnabled = false // todo isSubmitEnabled
+
   return (
     <FormProvider {...methods}>
       <main
@@ -114,12 +116,13 @@ const CreateVesselPage = () => {
       >
         <Sidebar />
         <div className="vessel-page__main relative flex min-w-0 flex-col">
+          {isSubmitEnabled && <div className="top-gradient" />}
           <DraftButton />
           <section
-            className="content relative mx-auto w-full max-w-[564px] px-5 py-16 lg:px-0 lg:pb-[52px]"
+            className="content relative mx-auto w-full max-w-[564px] px-5 pb-16 lg:px-0 lg:pb-[52px]"
             aria-label="General info form"
           >
-            <Header />
+            <Header isSubmitEnabled={isSubmitEnabled} />
             <form
               className="form vessel-form flex flex-col gap-0"
               noValidate

@@ -14,7 +14,9 @@
   "header": {
     "generalInfo": "General Info",
     "listingHeat": "Listing Heat:",
-    "freezing": "Freezing"
+    "listingHeatHint": "You will be able to save the vessel data once the indicator reaches the “Warm” state.",
+    "freezing": "Freezing",
+    "warm": "Warm"
   },
   "buttons": {
     "saveDrafts": "Save to Drafts & Exit",
