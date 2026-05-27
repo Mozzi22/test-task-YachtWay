@@ -1,7 +1,8 @@
 import HelpDot from './HelpDot.tsx'
-import { type ReactNode, useEffect, useRef, useState } from 'react'
+import { type ReactNode, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import clsx from 'clsx'
+import { useClickOutside } from '../hooks/useClickOutside.tsx'
 
 type Props<T> = {
   id: string
@@ -28,18 +29,7 @@ const DropDown = <T extends string>({
 
   const ref = useRef<HTMLDivElement | null>(null)
 
-  useEffect(() => {
-    if (!openOptions) return
-
-    const handleClickOutside = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpenOptions(false)
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [openOptions, setOpenOptions])
+  useClickOutside(ref, openOptions, () => setOpenOptions(false))
 
   return (
     <div ref={ref} className="field combo relative block" data-combo={id}>
@@ -80,11 +70,6 @@ const DropDown = <T extends string>({
           id={`${id}-options`}
           role="dialog"
         >
-          {/*<div*/}
-          {/*  className="combo-menu absolute z-20 top-[44px] left-0 right-0 max-h-[260px] overflow-auto p-2 bg-surface border border-line rounded-[4px] shadow-[0_14px_32px_rgba(34,34,45,0.14)]"*/}
-          {/*  id={`${id}-options`}*/}
-          {/*  role="listbox"*/}
-          {/*>*/}
           {options.map((option) => (
             <button
               key={option}

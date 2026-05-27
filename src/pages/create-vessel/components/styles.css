@@ -107,24 +107,50 @@
 }
 
 .status {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--color-ink-2);
+  background: var(--color-surface-alt);
+  border-radius: 20px;
+
+  .icon {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
-    color: var(--color-ink-2);
-    background: var(--color-surface-alt);
-    border-radius: 20px;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+  }
+}
 
-    .snow {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        font-size: 20px;
-        color: var(--color-info);
-        background: var(--color-info-soft);
-        border-radius: 50%;
-    }
+.status--sun {
+  border: 2px solid #F1F1F2;
+  background: var(--color-surface-alt);
+}
+
+.top-gradient {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 373px;
+  z-index: 15;
+  margin-bottom: -373px;
+  pointer-events: none;
+  background: linear-gradient(173.43deg, rgba(249, 226, 109, 0.54) -28.04%, rgba(255, 243, 180, 0) 53.33%);
+}
+
+.page-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 40px;
+  padding-bottom: 24px;
+  padding-top: 64px;
+  background: var(--color-surface);
 }
 
 .help-dot {

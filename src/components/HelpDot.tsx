@@ -1,5 +1,6 @@
-import { type Dispatch, type SetStateAction, useEffect, useRef } from 'react'
+import { type Dispatch, type SetStateAction, useRef } from 'react'
 import clsx from 'clsx'
+import { useClickOutside } from '../hooks/useClickOutside.tsx'
 
 const HelpDot = ({
   open,
@@ -12,18 +13,7 @@ const HelpDot = ({
 }) => {
   const ref = useRef<HTMLSpanElement | null>(null)
 
-  useEffect(() => {
-    if (!open) return
-
-    const handleClickOutside = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false)
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [open, setOpen])
+  useClickOutside(ref, open, () => setOpen(false))
 
   return (
     <span ref={ref}>

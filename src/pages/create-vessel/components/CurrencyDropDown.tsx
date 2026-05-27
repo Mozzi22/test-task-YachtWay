@@ -1,24 +1,15 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
+import { useClickOutside } from '../../../hooks/useClickOutside.tsx'
 
 const CURRENCY_OPTIONS = ['USD', 'EUR']
 
 const CurrencyDropDown = () => {
   const [open, setOpen] = useState<boolean>(false)
   const [selected, setSelected] = useState<string>(CURRENCY_OPTIONS[0])
+
   const ref = useRef<HTMLSpanElement | null>(null)
 
-  useEffect(() => {
-    if (!open) return
-
-    const handleClickOutside = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false)
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [open, setOpen])
+  useClickOutside(ref, open, () => setOpen(false))
 
   return (
     <b
