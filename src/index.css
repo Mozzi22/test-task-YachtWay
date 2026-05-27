@@ -385,8 +385,6 @@
   .warranty-card {
     padding: 14px 16px;
     background: var(--color-surface);
-    /*border: 1px solid rgb(220 220 222 / 90%);*/
-    /*border-radius: var(--radius-md);*/
     box-shadow: 0 4px 24px 4px rgba(132, 144, 163, 0.08);
   }
 
