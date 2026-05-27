@@ -1,0 +1,98 @@
+{
+  "sidebar": {
+    "listingContact": "Listing Contact",
+    "generalInfo": "General Info",
+    "power": "Power",
+    "vesselFeatures": "Vessel Features",
+    "accommodation": "Accommodation",
+    "photos": "Photos",
+    "videos": "Videos",
+    "tour3d": "3D Tour & Brochure",
+    "listingSummary": "Listing Summary",
+    "createNewListing": "CREATE NEW LISTING"
+  },
+  "header": {
+    "generalInfo": "General Info",
+    "listingHeat": "Listing Heat:",
+    "freezing": "Freezing"
+  },
+  "buttons": {
+    "saveDrafts": "Save to Drafts & Exit",
+    "back": "Back",
+    "saveNext": "Save & Next",
+    "new": "New",
+    "preOwned": "Pre-owned",
+    "availableNow": "Available Now",
+    "availableLater": "Available Later",
+    "priceRange": "Price Range",
+    "priceRangeHint": "Select the expected price range",
+    "fixedPrice": "Fixed Price",
+    "cancel": "Cancel",
+    "createModel": "Create Model"
+  },
+  "form": {
+    "vesselDetails": "Vessel Details",
+    "make": "Make",
+    "model": "Model",
+    "year": "Year",
+    "hullNumber": "Hull or Production Number",
+    "hullHint": "If still in production or no official HIN exists yet, enter the production number as a placeholder.",
+    "internalId": "Internal ID",
+    "internalIdHint": "Internal ID — unique boat identifier in the system",
+    "currentName": "Current Name",
+    "launchName": "Launch Name",
+    "vesselLocation": "Vessel Location",
+    "vesselLocationHint": "Your vessel will appear in search results for each location you add. No need to create separate listings.",
+    "usCitizens": "Not For Sale to US Citizens while in US waters",
+    "vesselType": "Vessel Type",
+    "availability": "Availability",
+    "completionDate": "Completion Date",
+    "goodFor": "Vessel Is Good For:",
+    "goodForHint": "Select activities or purposes this vessel is suitable for (e.g. fishing, transport, leisure)",
+    "category": "Category",
+    "price": "Price",
+    "priceLabel": "Price",
+    "taxes": "Taxes",
+    "taxStatus": "Tax Status",
+    "importDutyPaid": "Import Duty Paid",
+    "countryOfDuty": "Country Of Duty",
+    "countryOfDutyHint": "Select the country where import duty or taxes were paid",
+    "warranties": "Warranties",
+    "expirationDate": "Expiration Date",
+    "warranty": "Warranty",
+    "hidePrice": "Hide Price"
+  },
+  "market": {
+    "aboveMarketPrefix": "Price is",
+    "aboveMarketValue": "$1020,156 above",
+    "aboveMarketSuffix": "market",
+    "compared": "Compared to similar listings on other platforms.",
+    "learnMore": "Learn More",
+    "marketRange": "Market range:",
+    "rangeValue": "$4,200,000 - $7,200,000"
+  },
+  "warnings": {
+    "priceWarningTitle": "Warning!",
+    "priceWarning": "Buyers often skip listings without a price. Hiding your price reduce inquiries substantially."
+  },
+  "modal": {
+    "createNewModel": "Create New Model",
+    "modalDescription": "This model will appear only under My Created Models for your account unless the shipyard adds an official version later.",
+    "modelName": "Model Name"
+  },
+  "validation": {
+    "required": "This field is required",
+    "maxLength": "Maximum {{max}} characters",
+    "invalidYear": "Enter a valid year (1900-2100)",
+    "invalidPrice": "Enter a valid price",
+    "selectOption": "Please select an option",
+    "minCategories": "Select at least one category",
+    "invalidDate": "Enter a valid date"
+  },
+  "warrantyNames": {
+    "general": "General",
+    "engine": "Engine",
+    "hull": "Hull",
+    "generator": "Generator"
+  }
+}
