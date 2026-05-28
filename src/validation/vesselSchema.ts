@@ -1,37 +1,6 @@
 import * as yup from 'yup'
 
-export type VesselFormData = {
-  make: string
-  model: string
-  year: string
-  hullNumber: string
-  vesselLocation: string
-  vesselType: string[]
-  price: string
-  importDutyPaid: string
-  countryOfDuty: string
-  internalId: string | undefined
-  currentName: string | undefined
-  launchName: string | undefined
-  condition: 'new' | 'pre-owned' | undefined
-  usCitizenRestriction: boolean | undefined
-  availability: 'now' | 'later' | undefined
-  completionDate: string | undefined
-  goodForCategories: string[] | undefined
-  priceMode: 'range' | 'fixed' | undefined
-  hidePrice: boolean | undefined
-  taxStatus: string | undefined
-  generalWarrantyDateEnabled: boolean | undefined
-  generalWarrantyDate: string | undefined
-  engineWarrantyDateEnabled: boolean | undefined
-  engineWarrantyDate: string | undefined
-  hullWarrantyDateEnabled: boolean | undefined
-  hullWarrantyDate: string | undefined
-  generatorWarrantyDateEnabled: boolean | undefined
-  generatorWarrantyDate: string | undefined
-}
-
-export const vesselSchema = (): yup.ObjectSchema<VesselFormData> =>
+export const vesselSchema = () =>
   yup
     .object({
       make: yup.string().required('validation.required'),
@@ -55,26 +24,28 @@ export const vesselSchema = (): yup.ObjectSchema<VesselFormData> =>
       price: yup.string().required('validation.required'),
       importDutyPaid: yup.string().required('validation.required'),
       countryOfDuty: yup.string().required('validation.required'),
-      internalId: yup.string().optional(),
-      currentName: yup.string().optional(),
-      launchName: yup.string().optional(),
-      condition: yup.mixed<'new' | 'pre-owned'>().oneOf(['new', 'pre-owned']).optional(),
-      usCitizenRestriction: yup.boolean().optional(),
-      availability: yup.mixed<'now' | 'later'>().oneOf(['now', 'later']).optional(),
-      completionDate: yup.string().optional(),
-      goodForCategories: yup.array().of(yup.string().required()).optional(),
-      priceMode: yup.mixed<'range' | 'fixed'>().oneOf(['range', 'fixed']).optional(),
-      hidePrice: yup.boolean().optional(),
-      taxStatus: yup.string().optional(),
-      generalWarrantyDateEnabled: yup.boolean().optional(),
-      generalWarrantyDate: yup.string().optional(),
-      engineWarrantyDateEnabled: yup.boolean().optional(),
-      engineWarrantyDate: yup.string().optional(),
-      hullWarrantyDateEnabled: yup.boolean().optional(),
-      hullWarrantyDate: yup.string().optional(),
-      generatorWarrantyDateEnabled: yup.boolean().optional(),
-      generatorWarrantyDate: yup.string().optional()
+      internalId: yup.string().defined(),
+      currentName: yup.string().defined(),
+      launchName: yup.string().defined(),
+      condition: yup.mixed<'new' | 'pre-owned'>().oneOf(['new', 'pre-owned']).required(),
+      usCitizenRestriction: yup.boolean().defined(),
+      availability: yup.mixed<'now' | 'later'>().oneOf(['now', 'later']).required(),
+      completionDate: yup.string().defined(),
+      goodForCategories: yup.array().of(yup.string().required()).required(),
+      priceMode: yup.mixed<'range' | 'fixed'>().oneOf(['range', 'fixed']).required(),
+      hidePrice: yup.boolean().defined(),
+      taxStatus: yup.string().defined(),
+      generalWarrantyDateEnabled: yup.boolean().defined(),
+      generalWarrantyDate: yup.string().defined(),
+      engineWarrantyDateEnabled: yup.boolean().defined(),
+      engineWarrantyDate: yup.string().defined(),
+      hullWarrantyDateEnabled: yup.boolean().defined(),
+      hullWarrantyDate: yup.string().defined(),
+      generatorWarrantyDateEnabled: yup.boolean().defined(),
+      generatorWarrantyDate: yup.string().defined()
     })
     .required()
+
+export type VesselFormData = yup.InferType<ReturnType<typeof vesselSchema>>
 
 export default vesselSchema

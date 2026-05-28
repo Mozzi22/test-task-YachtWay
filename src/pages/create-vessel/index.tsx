@@ -95,9 +95,15 @@ const CreateVesselPage = () => {
   const isSubmitEnabled = methods.formState.isValid
 
   const handleResetForm = useCallback(() => methods.reset(defaultValues), [methods])
-  const handleSave = useCallback(() => {
-    if (isSubmitEnabled) handleResetForm()
-  }, [handleResetForm, isSubmitEnabled])
+  const handleSave = useCallback(
+    (data: VesselFormData) => {
+      if (isSubmitEnabled) {
+        console.log(data)
+        handleResetForm()
+      }
+    },
+    [handleResetForm, isSubmitEnabled]
+  )
 
   const completedRequiredFields = REQUIRED_PROGRESS_FIELDS.filter((fieldName) =>
     isCompletedValue(requiredFieldValues?.[fieldName])
@@ -137,6 +143,7 @@ const CreateVesselPage = () => {
             <form
               className="form vessel-form flex flex-col gap-0"
               noValidate
+              onSubmit={methods.handleSubmit(handleSave)}
               onSubmitCapture={() => {
                 void methods.trigger()
               }}
@@ -149,7 +156,7 @@ const CreateVesselPage = () => {
               <PriceBlock />
               <Taxes />
               <Warranties />
-              <FormActions onSave={handleSave} onBack={handleResetForm} />
+              <FormActions onBack={handleResetForm} />
             </form>
           </section>
         </div>
