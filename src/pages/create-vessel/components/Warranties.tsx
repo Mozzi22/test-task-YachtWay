@@ -40,7 +40,7 @@ const WarrantyItem = ({ item }: { item: TWarrantyItem }) => {
           value={value ?? ''}
           disabled={!isEnabled}
           label={t('form.expirationDate')}
-          setValue={(date) =>
+          setValue={(date: string) =>
             setValue(item.field, date, {
               shouldValidate: true
             })

@@ -28,7 +28,7 @@ const Availability = () => {
         id="completion-date"
         value={watch('completionDate') ?? ''}
         label={t('form.completionDate')}
-        setValue={(date) =>
+        setValue={(date: string) =>
           setValue('completionDate', date, {
             shouldValidate: true
           })

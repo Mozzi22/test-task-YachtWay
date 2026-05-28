@@ -10,6 +10,7 @@ type Props = {
   rightSlot?: ReactNode
   className?: string
   helpText?: string
+  autoComplete?: string
 }
 
 const Input = ({
@@ -19,6 +20,7 @@ const Input = ({
   helpText = '',
   rightSlot,
   className = '',
+  autoComplete = 'off',
   ...props
 }: Props) => {
   const [open, setOpen] = useState(false)
@@ -28,7 +30,13 @@ const Input = ({
       <span className="absolute left-3 -top-2 z-10 px-1 text-muted bg-surface text-xs font-medium leading-[18px]">
         {label}
       </span>
-      <input id={id} {...props} maxLength={20} className={clsx('input', error && 'input--error')} />
+      <input
+        id={id}
+        {...props}
+        maxLength={20}
+        className={clsx('input', error && 'input--error')}
+        autoComplete={autoComplete}
+      />
       {rightSlot && <>{rightSlot}</>}
       {helpText && <HelpDot open={open} setOpen={setOpen} />}
       <p

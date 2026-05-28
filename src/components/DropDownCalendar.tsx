@@ -3,19 +3,23 @@ import Calendar from './Calendar.tsx'
 import { useEffect, useRef, useState } from 'react'
 import dayjs from 'dayjs'
 
-const DropDownCalendar = ({
-  id,
-  value,
-  label,
-  disabled = false,
-  setValue
-}: {
+type Props = {
   id: string
   value: string
   label: string
   disabled?: boolean
   setValue: (date: string) => void
-}) => {
+  autoComplete?: string
+}
+
+const DropDownCalendar = ({
+  id,
+  value,
+  label,
+  disabled = false,
+  setValue,
+  autoComplete = 'off'
+}: Props) => {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLLabelElement | null>(null)
 
@@ -45,6 +49,7 @@ const DropDownCalendar = ({
         value={date}
         className="input"
         disabled={disabled}
+        autoComplete={autoComplete}
         onClick={() => setOpen(true)}
       />
       <i
