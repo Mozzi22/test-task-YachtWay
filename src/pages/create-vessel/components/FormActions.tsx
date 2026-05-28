@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import Button from '../../../components/Button.tsx'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 
-const FormActions = ({ onSave, onBack }: { onSave: () => void; onBack: () => void }) => {
+const FormActions = ({ onBack }: { onBack: () => void }) => {
   const { t } = useTranslation()
 
   return (
@@ -17,13 +17,13 @@ const FormActions = ({ onSave, onBack }: { onSave: () => void; onBack: () => voi
         onClick={onBack}
       />
       <Button
+        type="submit"
         title={
           <div className="flex items-center gap-2">
             {t('buttons.saveNext')} <ArrowRight width="18px" />
           </div>
         }
         className="save w-full flex items-center justify-center min-w-[112px] h-10 px-4 text-surface bg-purple border border-purple rounded-[4px] font-medium text-sm leading-[20px]"
-        onClick={onSave}
       />
     </div>
   )
